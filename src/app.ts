@@ -33,6 +33,8 @@ const handleErrors: ErrorRequestHandler = (err, _req, res, _next) => {
 
 export function createApp(store: LinkStore) {
   const app = express();
+  // Nginx runs on this machine: believe its X-Forwarded-* headers
+  app.set("trust proxy", "loopback");
   app.use(express.json());
 
   app.get("/health", (_req, res) => {
